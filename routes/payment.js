@@ -130,9 +130,13 @@ router.post("/create-order", async (req, res) => {
       return res.status(404).json({ success: false, error: "Course not found" });
     }
 
-    // either fixed price or from DB
-    const amount = (course.price || 499) * 100;
-    const shortType = courseType.substring(0, 3); // e.g. "wor"
+    // 👉 Different prices per category
+    let amount;
+    if (courseType === "aspirants") amount = 1* 100;
+    if (courseType === "working_professionals") amount = 1* 100;
+    if (courseType === "seniorcitizen") amount = 1* 100;
+
+    const shortType = courseType.substring(0, 3); 
     const shortTime = Date.now().toString().slice(-8);
 
     const options = {
@@ -187,17 +191,32 @@ router.post("/verify_payment", async (req, res) => {
       return res.json({ success: true, message: "Course already unlocked" });
     }
 
-    // ✅ Save purchase (45 days)
+    // 👉 Different expiry & amount per category
+    let amount, expiresAt;
+    if (courseType === "aspirants") {
+      amount = 499; 
+      expiresAt = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000); // 45 days
+    }
+    if (courseType === "working_professionals") {
+      amount = 999; 
+      expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000); // 3 months
+    }
+    if (courseType === "seniorcitizen") {
+      amount = 299; 
+      expiresAt = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000); // 2 months
+    }
+
+    // ✅ Save purchase
     await PurchasedCourse.create({
       user: userId,
       course: courseId,
       courseType,
-      amount: 499,
+      amount,
       razorpayOrderId: razorpay_order_id,
       razorpayPaymentId: razorpay_payment_id,
       status: "completed",
       purchasedAt: new Date(),
-      expiresAt: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000),
+      expiresAt,
     });
 
     return res.json({ success: true, message: "Course unlocked successfully" });
