@@ -1,0 +1,27 @@
+<div class="list-group">
+  <% fullStructure.forEach((block, index) => { %>
+    <div class="mb-3">
+      <div class="fw-bold d-flex justify-content-between align-items-center">
+        <span>Week <%= index + 1 %>: <%= block.section.title %></span>
+        <form action="/sections/<%= block.section._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this section and all its lessons?');">
+          <button type="submit" class="btn btn-sm btn-outline-danger">🗑</button>
+        </form>
+      </div>
+
+      <% block.lessons.forEach((lesson, idx) => { %>
+        <div class="list-group-item d-flex justify-content-between align-items-center <%= lesson._id.equals(currentLessonId) ? 'bg-light border border-dark' : '' %>">
+          <form action="/lessons/<%= lesson._id %>/toggle-completed" method="POST">
+            <button type="submit" class="btn btn-link p-0 border-0 text-start">
+              Day <%= idx + 1 %> 🎬 <%= lesson.title %>
+              <% if (lesson.completed) { %> ✅ <% } %>
+            </button>
+          </form>
+
+          <form action="/lessons/<%= lesson._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this lesson?');">
+            <button type="submit" class="btn btn-sm btn-outline-danger">🗑</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  <% }) %>
+</div>

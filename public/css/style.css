@@ -1,0 +1,190 @@
+/* public/css/style.css */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    flex: 1;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #ebebeb;
+    height: 6rem;
+  }
+  
+  .nav-link {
+    color: #222222;
+    text-decoration: none;
+  }
+  
+  /* Footer */
+  .f-info {
+    text-align: center;
+    height: 5rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .f-info-links a {
+    text-decoration: none;
+    color: #222222;
+  }
+  
+  .f-info-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .f-info-links,
+  .f-info-socials,
+  .f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+  }
+  
+  /* Cards */
+  .card {
+    border: none;
+    margin-bottom: 2rem;
+  }
+  
+  .card-img-top {
+    border-radius: 1rem;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 0;
+  }
+  
+  .card-text p {
+    font-weight: 400;
+  }
+  
+  .listing-link {
+    text-decoration: none;
+  }
+  
+  .card-img-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Sidebar for course structure */
+  .list-group-item {
+    background-color: #fff;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f1f1f1;
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* Responsive Tweaks */
+  @media (max-width: 768px) {
+    .navbar {
+      height: auto;
+    }
+  
+    .f-info {
+      flex-direction: column;
+      height: auto;
+      padding: 1rem 0;
+    }
+  
+    .card {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+/* Styling for the left and right layout */
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+#videoContainer {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.profile-pic-container {
+  width: 40px;             /* size of the circle */
+  height: 40px;
+  border-radius: 50%;      /* makes it circular */
+  overflow: hidden;        /* hides overflow so image fits inside circle */
+  border: 2px solid #fff;  /* optional white border */
+  display: inline-block;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* makes image cover the container without distortion */
+  display: block;
+}
+
+.course-card {
+  width: 100%;          
+  aspect-ratio: 1 / 0.75;  /* width : height = 1 : 0.75 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.course-card .card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.course-card .card-text {
+  overflow: hidden;      /* if text is long, hide overflow */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.row.gx-2 {
+  --bs-gutter-x: 0.5rem; /* horizontal gap between columns */
+}
+
+.row.gy-2 {
+  --bs-gutter-y: 0.5rem; /* vertical gap between rows */
+}
+.btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+

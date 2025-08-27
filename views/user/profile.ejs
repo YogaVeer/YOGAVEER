@@ -1,0 +1,156 @@
+<% layout("layouts/boilerplate_user") %>
+
+<div class="container mt-5">
+  <% if (!user.isProfileComplete) { %>
+    <%- include("complete_profile", { user: user, errors: errors || [] }) %>
+  <% } else { %>
+
+  <div class="profile-wrapper d-flex flex-column align-items-center" style="padding-top: 60px; padding-bottom: 20px;">
+  <img 
+    src="<%= user.profilePicture ? user.profilePicture : (user.picture || '/default-profile.png') %>" 
+    alt="Profile Picture" 
+    class="rounded-circle shadow-sm profile-pic"
+  />
+  </div>
+
+    <div class="card border-0 shadow-lg mx-auto" style="max-width: 800px;">
+      <div class="card-body">
+        <h4 class="card-title text-center mb-4"><%= user.name %>'s Profile</h4>
+
+        <div class="row mb-3">
+          <div class="col-md-6"><strong>Email:</strong> <span class="text-muted"><%= user.email %></span></div>
+          <div class="col-md-6"><strong>Contact:</strong> <span class="text-muted"><%= user.contact %></span></div>
+          <div class="col-md-6"><strong>Date of Birth:</strong> <span class="text-muted"><%= user.dob || "Not provided" %></span></div>
+          <div class="col-md-6"><strong>Address:</strong> <span class="text-muted"><%= user.address || "Not provided" %></span></div>
+          <div class="col-md-6"><strong>Preferred Slot:</strong> <span class="text-muted"><%= user.preferredTimeSlot || "Not specified" %></span></div>
+          <div class="col-md-6"><strong>Referral:</strong> 
+            <span class="text-muted">
+              <%= user.referralSource === "Other" ? user.referralOther : user.referralSource || "Not specified" %>
+            </span>
+          </div>
+        </div>
+
+        <hr>
+        <div class="col-md-6"><strong>Medical Conditions:</strong> <span class="text-muted"><%= user.medicalConditions || "None" %></span></div>
+        <div class="mb-3">
+          <strong>Wellness Challenges:</strong>
+          <% if (user.wellnessChallenges?.length > 0) { %>
+            <ul class="text-muted">
+              <% user.wellnessChallenges.forEach(c => { %>
+                <li><%= c %></li>
+              <% }) %>
+            </ul>
+            <% if (user.wellnessChallengesOther) { %>
+              <div><strong>Other:</strong> <span class="text-muted"><%= user.wellnessChallengesOther %></span></div>
+            <% } %>
+          <% } else { %>
+            <span class="text-muted">None</span>
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <strong>Yoga Goals:</strong>
+          <% if (user.yogaGoals?.length > 0) { %>
+            <ul class="text-muted">
+              <% user.yogaGoals.forEach(g => { %>
+                <li><%= g %></li>
+              <% }) %>
+            </ul>
+            <% if (user.yogaGoalsOther) { %>
+              <div><strong>Other:</strong> <span class="text-muted"><%= user.yogaGoalsOther %></span></div>
+            <% } %>
+          <% } else { %>
+            <span class="text-muted">None</span>
+          <% } %>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4"><strong>Height:</strong> <span class="text-muted"><%= user.height ? user.height + " cm" : "Not provided" %></span></div>
+          <div class="col-md-4"><strong>Weight:</strong> <span class="text-muted"><%= user.weight ? user.weight + " kg" : "Not provided" %></span></div>
+          <% if (user.height && user.weight) {
+            const h = user.height / 100;
+            const bmi = (user.weight / (h * h)).toFixed(2);
+          %>
+            <div class="col-md-4"><strong>BMI:</strong> <span class="text-muted"><%= bmi %></span></div>
+          <% } %>
+        </div>
+
+        <hr />
+        <div class="d-flex justify-content-between mt-3">
+          <a href="/user" class="btn btn-outline-primary">Dashboard</a>
+          <a href="/auth/logout" class="btn btn-outline-success">Logout</a>
+        </div>
+      </div>
+    </div>
+
+  <% } %>
+</div>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #dbe4f0, #c8d4e8, #e3e3e3);
+    background-size: cover;   
+  }
+  .card {
+    background-color: whitesmoke; 
+    border-radius: 16px;
+  }
+  .btn-outline-primary {
+    color: rgb(1, 24, 45);
+    border-color: rgb(1, 24, 45);
+  }
+
+  .btn-outline-primary:hover {
+    background-color:rgb(1, 24, 45); /* Bootstrap gray */
+    color: white;
+    border-color: rgb(1, 24, 45);;
+  }
+
+  .btn-outline-success {
+    color: rgb(1, 24, 45);
+    border-color: rgb(1, 24, 45);
+  }
+
+  .btn-outline-success:hover {
+    background-color:rgb(1, 24, 45); /* Bootstrap gray */
+    color: white;
+    border-color: rgb(1, 24, 45);
+  }
+
+  .btn-outline-primary:active,
+  .btn-outline-primary:focus,
+  .btn-outline-primary:active:focus {
+    background-color: #6c757d !important;
+    color: white !important;
+    border-color: #6c757d !important;
+    box-shadow: none !important;
+  }
+
+  .btn-outline-success:active,
+  .btn-outline-success:focus,
+  .btn-outline-success:active:focus {
+    background-color: #6c757d !important;
+    color: white !important;
+    border-color: #6c757d !important;
+    box-shadow: none !important;
+  }
+
+  .profile-pic {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border: 4px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .profile-pic:hover {
+    transform: scale(1.05);
+  }
+
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>

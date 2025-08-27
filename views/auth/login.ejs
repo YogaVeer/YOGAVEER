@@ -1,0 +1,68 @@
+<% layout("layouts/boilerplate_login") %>
+
+<style>
+  body {
+    background: url('/images/yoga-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-wrapper {
+    height: 80vh;
+    display: flex;
+    justify-content: flex-end; /* Move to right */
+    align-items: center;
+    padding-right: 5%; /* Shift slightly inside from right */
+  }
+
+  .login-container {
+    backdrop-filter: blur(15px); /* 🔥 Blur effect */
+    background-color: rgba(255, 255, 255, 0.4); /* semi-transparent */
+    padding: 60px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 560px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+
+  .login-container h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #222;
+  }
+
+  .login-container p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .btn-google {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 35px;
+    transition: all 0.3s ease;
+    background-color: rgb(1, 24, 45);
+    color: #ffffff;
+  }
+
+  .btn-google:hover {
+    background-color: #555;
+    color: white;
+  }
+</style>
+
+<div class="main-wrapper">
+  <div class="login-container">
+    <h1>Welcome to Yogaveer</h1>
+    <p>Please login using your Google account</p>
+    <a href="/auth/google" class="btn btn-outline-white btn-google">
+      <i class="bi bi-google me-2"></i> Login with Google
+    </a>
+  </div>
+</div>

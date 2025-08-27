@@ -1,0 +1,58 @@
+<%- layout("layouts/boilerplate") %>
+
+<div class="container mt-4">
+  <h2><%= course.name %></h2>
+
+  <div class="row">
+    <!-- Left side: Section and Lessons List -->
+    <div class="col-md-4 border-end">
+      <div class="list-group">
+        <% fullStructure.forEach(({ section, lessons }) => { %>
+          <div class="mb-3">
+            <div class="fw-bold d-flex justify-content-between align-items-center">
+              <span><%= section.title %></span>
+            </div>
+
+            <% lessons.forEach(lesson => {
+                const isActive = current && lesson._id.toString() === current._id.toString();
+            %>
+              <div class="list-group-item d-flex justify-content-between align-items-center <%= isActive ? 'bg-light border border-dark' : '' %>">
+                <div class="d-flex align-items-center gap-2 flex-grow-1">
+                  <a href="/seniorcitizen/<%= course._id %>?lesson=<%= lesson._id %>" class="text-decoration-none text-dark">
+                    <%= lesson.title %>
+                  </a>
+                </div>
+                <div class="d-flex gap-1">
+                  <a href="/seniorcitizen/lessons/<%= lesson._id %>/edit" class="btn btn-warning btn-sm" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <form action="/seniorcitizen/lessons/<%= lesson._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this lesson?');">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Right side: Video Player -->
+    <div class="col-md-8">
+      <h5 class="mb-3 text-muted" style="font-size: 1rem;">Now Playing:</h5>
+      <div id="videoContainer">
+        <% if (current) { %>
+          <h3 id="videoTitle" class="mb-2"><%= current.title %></h3>
+          <video id="lessonVideo" class="w-100 rounded border" controls>
+            <source src="<%= current.videoPath %>" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        <% } else { %>
+          <p class="text-muted">No lesson selected or available.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<% layout("layouts/boilerplate") %>
+
+<h3 class="mt-4">Add New Lesson (Senior Citizens)</h3>
+
+<form action="/seniorcitizen/lessons" method="POST">
+  <div class="mb-3">
+    <label for="courseId">Course</label>
+    <select name="courseId" id="courseId" class="form-control" required>
+      <% courses.forEach(course => { %>
+        <option value="<%= course._id %>"><%= course.name %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Section</label><br>
+    <input type="radio" name="sectionOption" value="create" id="createSection" checked onchange="toggleSection()">
+    <label for="createSection">Create New</label>
+    <input type="radio" name="sectionOption" value="existing" id="existingSection" onchange="toggleSection()">
+    <label for="existingSection">Use Existing</label>
+  </div>
+
+  <div class="mb-3" id="sectionCreate">
+    <label for="sectionTitle">New Section Title</label>
+    <input name="sectionTitle" id="sectionTitle" class="form-control" autocomplete="off">
+  </div>
+
+  <div class="mb-3 d-none" id="existingSectionDiv">
+    <label for="existingSectionId">Choose Existing Section</label>
+    <select class="form-control" id="existingSectionId" name="existingSectionId">
+      <% sections.forEach(section => { %>
+        <% if (section.course) { %>
+          <option value="<%= section._id %>" data-course="<%= section.course._id %>"><%= section.title %></option>
+        <% } %>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="lessonTitle">Lesson Title</label>
+    <input name="lessonTitle" id="lessonTitle" class="form-control" required autocomplete="off">
+  </div>
+
+  <div class="mb-3">
+    <label for="videoPath">Video Link (YouTube/Drive/etc.)</label>
+    <input type="url" name="videoPath" id="videoPath" class="form-control" placeholder="https://..." required>
+  </div>
+
+  <button type="submit" class="btn btn-dark">Add Lesson</button>
+</form>
+
+<script>
+  function toggleSection() {
+    const createNew = document.getElementById("createSection").checked;
+    document.getElementById("sectionCreate").classList.toggle("d-none", !createNew);
+    document.getElementById("existingSectionDiv").classList.toggle("d-none", createNew);
+    filterSectionsByCourse();
+  }
+
+  function filterSectionsByCourse() {
+    const selectedCourseId = document.getElementById("courseId").value;
+    const sectionSelect = document.getElementById("existingSectionId");
+    const options = sectionSelect.querySelectorAll("option");
+
+    let firstVisibleOptionSet = false;
+
+    options.forEach(option => {
+      const belongsToCourse = option.getAttribute("data-course") === selectedCourseId;
+      option.style.display = belongsToCourse ? "block" : "none";
+
+      if (belongsToCourse && !firstVisibleOptionSet) {
+        sectionSelect.value = option.value;
+        firstVisibleOptionSet = true;
+      }
+    });
+
+    if (!firstVisibleOptionSet) {
+      sectionSelect.value = "";
+    }
+  }
+
+  document.getElementById("courseId").addEventListener("change", filterSectionsByCourse);
+  window.addEventListener("DOMContentLoaded", toggleSection);
+</script>

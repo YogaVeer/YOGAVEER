@@ -1,0 +1,22 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="container mt-4">
+  <h2 class="mb-4">Referral Source Statistics</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Referral Source</th>
+        <th>Number of Users</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% stats.forEach(stat => { %>
+        <tr>
+          <td><%= stat._id || "Not Specified" %></td>
+          <td><%= stat.count %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

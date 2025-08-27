@@ -1,0 +1,18 @@
+<% layout("layouts/boilerplate") %>
+
+<h2 style="margin-left: 500px">Welcome, Admin</h2>
+<h2 class="mt-4">Courses created for Senior Citizens</h2>
+
+<div class="row justify-content-center gx-2 gy-2"> <!-- Consistent spacing with Aspirants/Working Professionals -->
+  <% courses.forEach(course => { %>
+    <div class="col-6 col-md-3 d-flex align-items-stretch">
+      <div class="card course-card text-center">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= course.name %></h5>
+          <p class="card-text flex-grow-1"><%= course.description %></p>
+          <a href="/seniorcitizen/<%= course._id %>" class="btn btn-dark mt-auto">Open Course</a>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>
