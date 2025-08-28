@@ -47,7 +47,8 @@ router.get("/auth/google/callback",
           return res.redirect("/user/complete_profile");
         }
 
-        return res.redirect("/user");
+        // If profile is complete, always go to choose_category first
+        return res.redirect("/user/choose_category");
       });
     } catch (err) {
       console.error("OAuth Callback Error:", err);

@@ -1,0 +1,160 @@
+<% layout("layouts/boilerplate_category") %>
+<style>
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Container */
+.category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+/* Title */
+.category-title {
+  font-size: 2.7rem;
+  font-weight: 700;
+  height:6rem;
+  margin-top: 8rem;
+  margin-bottom: 3rem;
+  color: #1f2937;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(99,102,241,0.25);
+}
+
+/* Category Grid */
+.category-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Card Style */
+.category-box {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 6px 25px rgba(60,72,88,0.12);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Effects */
+.category-box:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(60,72,88,0.25);
+}
+.category-icon {
+  font-size: 3.2rem;
+  margin-bottom: 1.2rem;
+  transition: transform 0.3s, color 0.3s;
+}
+.category-box:hover .category-icon {
+  color: #6366f1;
+  transform: rotate(-5deg) scale(1.1);
+}
+
+/* Texts */
+.category-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+.category-desc {
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+/* Links */
+.category-link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  background: #6366f1;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 -2px 12px rgba(99,102,241,0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .category-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;;
+  }
+  .category-box {
+    padding: 1.5rem 1rem;
+  }
+  .category-icon {
+    font-size: 2.5rem;
+  }
+  .category-label {
+    font-size: 1.2rem;
+  }
+  .category-desc {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<div class="category-container">
+  <div class="category-title">Choose Your Category</div>
+  <div class="category-boxes">
+    <a href="/user" class="category-link">
+      <div class="category-box">
+        <div class="category-icon">🧘‍♂️</div>
+        <div class="category-label">Aspirant</div>
+        <div class="category-desc">For yoga learners and enthusiasts.</div>
+      </div>
+    </a>
+    <a href="/user/working_professionals" class="category-link">
+      <div class="category-box">
+        <div class="category-icon">💼</div>
+        <div class="category-label">Working 
+          Professional</div>
+        <div class="category-desc">Yoga for busy professionals and employees.</div>
+      </div>
+    </a>
+    <a href="/user/seniorcitizen" class="category-link">
+      <div class="category-box">
+        <div class="category-icon">👴</div>
+        <div class="category-label">Senior Citizen</div>
+        <div class="category-desc">Gentle yoga for seniors and elders.</div>
+      </div>
+    </a>
+  </div>
+</div>

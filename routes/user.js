@@ -47,8 +47,9 @@ function ensureAuth(req, res, next) {
         return res.redirect("/user/complete_profile");
       }
 
+      // After profile completion, always go to choose_category first
       if (user.isProfileComplete && req.originalUrl === "/user/complete_profile") {
-        return res.redirect("/user");
+        return res.redirect("/user/choose_category");
       }
 
       return next();
@@ -290,7 +291,7 @@ router.get("/user/seniorcitizen/:id", ensureAuth, async (req, res) => {
 // =================== PROFILE ===================
 
 router.get("/user/complete_profile", ensureAuth, async (req, res) => {
-  if (req.user.isProfileComplete) return res.redirect("/user");
+  if (req.user.isProfileComplete) return res.redirect("/user/choose_category");
   const user = await User.findById(req.user._id);
   res.render("user/complete_profile", { user, errors: null });
 });
@@ -383,7 +384,7 @@ router.post("/user/profile", ensureAuth, upload.single("profileImage"), async (r
         return res.redirect("/user/complete_profile");
       }
 
-      return res.redirect("/user");
+    return res.redirect("/user/choose_category");
     });
   } catch (err) {
     console.error("❌ Profile save error:", err);
@@ -492,6 +493,15 @@ router.post("/purchase_all/:category", async (req, res) => {
 // =================== COMING SOON PAGE ===================
 router.get("/seniors", (req, res) => {
   res.render("user/coming_soon", { audience: "Senior Citizens" });
+});
+
+// =================== CHOOSE CATEGORY ===================
+router.get("/user/choose_category", ensureAuth, async (req, res) => {
+  // Prevent admin from accessing this page
+  if (req.user.isAdmin) {
+    return res.redirect("/courses");
+  }
+  res.render("user/choose_category", { user: req.user });
 });
 
 module.exports = router;
